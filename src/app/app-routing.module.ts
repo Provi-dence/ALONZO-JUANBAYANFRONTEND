@@ -9,8 +9,9 @@ import { Role } from './_models';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { TeamMemberComponent } from './team-member/about-us.component';
 import { CampaignComponent } from './campaign/campaign.component';
-import { CreateCampaignComponent } from './create campaign/create-campaign.component'
+import { CreateCampaignComponent } from './create campaign/create-campaign.component';
 import { NotFoundComponent } from './lost-page/404.page.component';
+import { CreateEventComponent } from './events/create-event.component'
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
@@ -22,7 +23,7 @@ const routes: Routes = [
     { path: 'team-member', component: TeamMemberComponent },  // Add route for About Us
     { path: 'campaign', component: CampaignComponent},
     { path: 'create-campaign', component: CreateCampaignComponent }, // Route for creating a campaign
-
+    { path: 'events', component: CreateEventComponent },
     // Protected route with AuthGuard for home
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 

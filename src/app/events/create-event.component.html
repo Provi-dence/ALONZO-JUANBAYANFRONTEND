@@ -1,0 +1,62 @@
+<div>
+  <h2>Event Management</h2>
+  <button (click)="openModal()" class="open-button">Create Event</button>
+
+  <!-- Overlay for Create Event Form -->
+  <div class="modal" [ngClass]="{'active': showModal}">
+    <div class="modal-content enhanced-modal">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Create Event</h2>
+      <form (ngSubmit)="createEvent()">
+        <!-- Event Title -->
+        <label for="eventTitle">Event Title</label>
+        <input type="text" id="eventTitle" [(ngModel)]="event.Event_Name" name="eventName" placeholder="Enter Event Title" required />
+
+        <!-- Event Description -->
+        <label for="eventDescription">Event Description</label>
+        <textarea id="eventDescription" [(ngModel)]="event.Event_Description" name="eventDescription" placeholder="Enter Event Description" required></textarea>
+
+        <!-- Event Start and End Date -->
+        <label for="eventStartDate">Event Start Date</label>
+        <input type="date" id="eventStartDate" [(ngModel)]="event.Event_Start_Date" name="eventStartDate" required />
+
+        <label for="eventEndDate">Event End Date</label>
+        <input type="date" id="eventEndDate" [(ngModel)]="event.Event_End_Date" name="eventEndDate" required />
+
+        <!-- Event Location -->
+        <label for="eventLocation">Event Location</label>
+        <input type="text" id="eventLocation" [(ngModel)]="event.Event_Location" name="eventLocation" placeholder="Enter Event Location" required />
+
+        <!-- Event Status -->
+        <label for="eventStatus">Event Status</label>
+        <input type="number" id="eventStatus" [(ngModel)]="event.Event_Status" name="eventStatus" placeholder="Event Status (1 = Active, 0 = Inactive)" required />
+
+        <!-- Multiple Image Upload with Preview -->
+        <label for="eventImages">Event Images</label>
+        <input type="file" id="eventImages" (change)="handleFileInput($event)" multiple />
+
+        <!-- Image Previews -->
+        <div class="image-preview" *ngIf="imagePreviews.length > 0">
+          <h4>Image Preview(s):</h4>
+          <div class="image-container">
+            <div *ngFor="let img of imagePreviews" class="image-card">
+              <img [src]="img" alt="Image Preview" class="preview-img" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button">Create Event</button>
+      </form>
+    </div>
+  </div>
+
+  <h2>Event List</h2>
+  <ul class="event-list">
+    <li *ngFor="let event of events">
+      <strong>{{ event.Event_Name }}</strong> <br />
+      {{ event.Event_Start_Date | date }} to {{ event.Event_End_Date | date }} <br />
+      Location: {{ event.Event_Location }}
+    </li>
+  </ul>
+</div>

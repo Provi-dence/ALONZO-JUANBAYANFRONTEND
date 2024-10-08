@@ -24,6 +24,7 @@ import { CampaignComponent } from './campaign/campaign.component';
 import { AdminModule } from './admin/admin.module';
 import { CreateCampaignComponent } from './create campaign';
 import { RouterModule } from '@angular/router';
+import { CreateEventComponent } from './events/create-event.component'; // Import your component
 
 @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { RouterModule } from '@angular/router';
         LandingPageComponent,
         TeamMemberComponent,
         CampaignComponent, 
-        CreateCampaignComponent
+        CreateCampaignComponent,
+        CreateEventComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

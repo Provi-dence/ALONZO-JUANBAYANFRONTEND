@@ -1,0 +1,11 @@
+<h2>Events List</h2>
+<div class="row">
+  <div *ngFor="let event of events; let i = index" class="col-md-4">
+    <div class="card mb-4" (click)="viewDetails(i)">
+      <img [src]="event.image" class="card-img-top" alt="Event Image">
+      <div class="card-body">
+        <h5 class="card-title">{{ event.title }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
