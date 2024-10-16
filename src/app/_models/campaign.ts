@@ -13,3 +13,5 @@ export class Campaign {
     Campaign_Image?: string;
     Campaign_ApprovalStatus?: string;
 }
+
+

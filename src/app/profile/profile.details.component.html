@@ -3,47 +3,168 @@
 <style>
   body {
     background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
   }
+
   .profile-header {
-    position: relative;
     text-align: center;
     background-color: #fff;
     padding: 2rem 1rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 2rem;
   }
+
   .profile-header img {
     border-radius: 50%;
     width: 120px;
     height: 120px;
     object-fit: cover;
-    margin-bottom: 15px;
     border: 5px solid #fff;
+    transition: transform 0.2s ease-in-out;
   }
+
+  .profile-header img:hover {
+    transform: scale(1.05);
+  }
+
   .card {
+    border-radius: 10px;
     margin-top: -30px;
   }
+
   .nav-button.active {
     background-color: #0d6efd;
     color: #fff;
   }
+
   .campaign-section img {
     border-radius: 5px;
   }
+
+  .campaign-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 0 0 10px;
+  }
+
   #passwordError {
     display: none;
+  }
+
+  .nav-button {
+    transition: all 0.3s;
+  }
+
+  .nav-button:hover {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+
+  .table thead th {
+    background-color: #0d6efd;
+    color: #fff;
+  }
+
+  .table tbody tr:hover {
+    background-color: #f1f3f5;
+  }
+
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+
+  .btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+  }
+
+  .card-body h4 {
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .modal-content {
+    border-radius: 10px;
+    padding: 2rem;
+  }
+
+  .modal-header,
+  .modal-footer {
+    border: none;
+  }
+
+  /* Profile Points Box */
+  .points-box {
+    background-color: #0d6efd;
+    color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+  }
+
+  /* Section Headers */
+  h3 {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #0d6efd;
+  }
+
+  /* Campaign/Rewards Section Styling */
+  .campaign-section,
+  .rewards-section {
+    margin-top: 2rem;
+  }
+
+  .campaign-section .card,
+  .rewards-section .card {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Ensure proper responsive padding */
+  .section-padding {
+    padding: 2rem 1rem;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .profile-header {
+      padding: 1rem;
+    }
+
+    .nav-button {
+      margin-bottom: 0.5rem;
+    }
+
+    .points-box {
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+
+    .campaign-image {
+      height: 150px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
   }
 </style>
 
 <div class="container mt-5">
-  <div class="profile-header" >
-    <img [src]="imagePreview || account.acc_image || 'assets/default-profile/27.png'" alt="Profile Picture"(click)="openFileSelector()">
+  <div class="profile-header">
+    <img [src]="imagePreview || account.acc_image || 'assets/default-profile/27.png'" alt="Profile Picture" (click)="openFileSelector()">
     <h3>{{ account.acc_firstname }} {{ account.acc_lastname }}</h3>
-    <p>Email: {{ account.acc_email }}</p>
-    <p>Phone number: {{ account.acc_pnumber }}</p>
-    <p><a [routerLink]="['update']" [queryParams]="{ id: account.id }">Profile</a></p>
+    <p class="text-muted">{{ account.acc_email }}</p>
+    <p><a [routerLink]="['update']" [queryParams]="{ id: account.id }" class="text-primary">Edit Profile</a></p>
   </div>
-  
 
   <div class="card shadow-sm">
     <div class="card-body text-center">
@@ -61,26 +182,53 @@
           <button (click)="showSection('rewards')" class="nav-button btn btn-outline-primary w-100" [ngClass]="{'active': currentSection === 'rewards'}">Redeem Rewards</button>
         </div>
       </div>
-      <div class="p-3 bg-light rounded mt-4">
+
+      <div class="points-box">
         <h5 class="mb-0">Earned Points</h5>
-        <h3 class="fw-bold">{{ account.acc_totalpoints }}</h3>
+        <h3>{{ account.acc_totalpoints }}</h3>
       </div>
     </div>
   </div>
 
-  <div *ngIf="currentSection === 'activities'" class="container mt-5">
+  <!-- Your Activities Section -->
+  <div *ngIf="currentSection === 'activities'" class="container mt-5 section-padding">
     <h3>Your Activities</h3>
-    <p>Activity 1, Activity 2, Activity 3...</p>
+
+    <div *ngIf="campaigns.length > 0">
+      <div *ngFor="let campaign of campaigns" class="card mb-3 shadow-sm">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="getImagePath('assets/' + campaign.Campaign_Image)" alt="{{ campaign.Campaign_Name }} Image" class="campaign-image" (error)="this.src='assets/jb-symbol-logo.png'">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ campaign.Campaign_Name }}</h5>
+              <p class="card-text">{{ campaign.Campaign_Description }}</p>
+              <p class="card-text"><small class="text-muted">Category: {{ campaign.Campaign_Category === 1 ? 'Medical' : 'Other' }}</small></p>
+              <p class="card-text"><small class="text-muted">Status: {{ campaign.Campaign_Status === 0 ? 'Pending' : campaign.Campaign_Status === 1 ? 'Approved' : 'Rejected' }}</small></p>
+              <p class="card-text"><small class="text-muted">Approval Status: {{ campaign.Campaign_ApprovalStatus }}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="campaigns.length === 0">
+      <p>You have not created any campaigns yet.</p>
+    </div>
   </div>
 
-  <div *ngIf="currentSection === 'events'" class="container mt-5">
+  <!-- Accomplished Events Section -->
+  <div *ngIf="currentSection === 'events'" class="container mt-5 section-padding">
     <h3>Accomplished Events</h3>
     <p>Event 1, Event 2, Event 3...</p>
   </div>
 
-  <div *ngIf="currentSection === 'campaigns'" class="container mt-5 campaign-section">
-    <h3>Accomplished Campaigns</h3>
-    <div *ngFor="let campaign of campaigns" class="card shadow-sm">
+  <!-- Accomplished Campaigns Section -->
+<div *ngIf="currentSection === 'campaigns'" class="container mt-5 campaign-section">
+  <h3>Accomplished Campaigns</h3>
+  <div *ngIf="getAccomplishedCampaigns().length > 0">
+    <div *ngFor="let campaign of getAccomplishedCampaigns()" class="card shadow-sm mb-3">
       <div class="card-body">
         <h4 class="text-danger">{{ campaign.Campaign_Category === 1 ? 'Medical' : 'Other' }}</h4>
         <h3 class="card-title">{{ campaign.Campaign_Name }}</h3>
@@ -89,53 +237,29 @@
       </div>
     </div>
   </div>
+  <div *ngIf="getAccomplishedCampaigns().length === 0">
+    <p>No campaigns have been accomplished yet.</p>
+  </div>
+</div>
 
-  <div *ngIf="currentSection === 'rewards'" class="container mt-5">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Redeem Rewards</h5>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Reward</th>
-                <th scope="col">Description</th>
-                <th scope="col">Points Required</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Free T-shirt</td>
-                <td>A stylish volunteer t-shirt.</td>
-                <td>500</td>
-                <td><button class="btn btn-primary">Redeem</button></td>
-              </tr>
-              <tr>
-                <td>Gift Card</td>
-                <td>₱1000 Gift card for various stores.</td>
-                <td>1000</td>
-                <td><button class="btn btn-primary">Redeem</button></td>
-              </tr>
-              <tr>
-                <td>Meal Voucher</td>
-                <td>₱500 Meal voucher for selected restaurants.</td>
-                <td>750</td>
-                <td><button class="btn btn-primary">Redeem</button></td>
-              </tr>
-              <tr>
-                <td>Volunteer Kit</td>
-                <td>A complete volunteer kit including a cap, badge, and notebook.</td>
-                <td>1200</td>
-                <td><button class="btn btn-primary">Redeem</button></td>
-              </tr>
-            </tbody>
-          </table>
+
+
+  <!-- Redeem Rewards Section -->
+  <div *ngIf="currentSection === 'rewards'" class="container mt-5 section-padding">
+    <h3>Redeem Rewards</h3>
+    <div class="rewards-section">
+      <div *ngFor="let reward of rewards" class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h4 class="card-title">{{ reward.title }}</h4>
+          <p class="card-text">{{ reward.description }}</p>
+          <p class="card-text text-muted">Points Required: {{ reward.points }}</p>
+          <button class="btn btn-primary" (click)="redeemReward(reward.id)">Redeem</button>
         </div>
       </div>
     </div>
   </div>
 
+  
   <!-- Modal for Profile Details and Change Password -->
   <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

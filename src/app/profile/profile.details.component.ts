@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService, CampaignService } from '@app/_services';
-import { Account } from '@app/_models/account';
-import { Campaign } from '@app/_models/campaign';
+import { AccountService, CampaignService } from '../_services';
+import { Account } from '../_models/account';
+import { Campaign } from '../_models/campaign';
 
 @Component({
   selector: 'app-details',
@@ -40,6 +40,18 @@ export class DetailsComponent implements OnInit {
       console.error('Invalid account ID:', this.account.id);
     }
   }
+  
+  getImagePath(image: string): string {
+    return image ? `http://localhost:4000/${image}` : 'assets/'; 
+  }
+
+  // accomplished campaigns
+  getAccomplishedCampaigns() {
+    const today = new Date();
+    return this.campaigns.filter(campaign => new Date(campaign.Campaign_End) <= today);
+  }
+  
+  
 
   loadProfileImage(): void {
     const savedImage = localStorage.getItem(`profileImage_${this.account.id}`);

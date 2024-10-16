@@ -1,0 +1,73 @@
+<!-- Welcome Banner -->
+<section class="welcome-banner">
+    <div class="container">
+        <h1>Welcome, {{ userName }}</h1>
+        <p class="lead">We're here to support you on your journey. Follow these steps to create your own campaign and seek the help you need.</p>
+    </div>
+  </section>
+  
+  <!-- Background Wrapper for About Us to How to Create a Campaign -->
+  <div class="content-background">
+    <!-- About Us Section -->
+    <div class="container about-section">
+        <h2>About Us</h2>
+        <h3>Help People, Our Main Goals</h3>
+        <p>JuanBayan is a crowdfunding platform dedicated to amplifying the voices and stories of disadvantaged individuals. We bridge the gap between those in need and a global community of generous supporters. Here, you can create campaigns to raise funds for critical expenses, life-changing opportunities, or simply a helping hand during difficult times.</p>
+        <p>Whether it's supporting medical bills, educational aspirations, or basic necessities, every contribution makes a real difference. Join us in fostering a more compassionate world, one story at a time.</p>
+        <a href="#" class="btn btn-about">More About</a>
+    </div>
+  
+    <!-- How to Create a Campaign Section -->
+    <div class="container my-5">
+        <h2 class="campaign-list-title">How to Create a Campaign</h2>
+        <div class="row">
+            <!-- Step 1 to Step 6 -->
+            <div class="col-md-4" *ngFor="let step of steps">
+                <div class="step-card">
+                    <img [src]="step.imageUrl" alt="Step {{ step.number }} Image" class="img-fluid mb-3">
+                    <h5 class="step-number">{{ step.number }}</h5>
+                    <p class="step-description">{{ step.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+        <h2>What People Say About Us</h2>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item" [class.active]="i === 0" *ngFor="let testimonial of testimonials; let i = index">
+                    <div class="testimonial-item d-flex flex-column align-items-center">
+                        <img [src]="testimonial.imageUrl" alt="{{ testimonial.name }}">
+                        <h5>{{ testimonial.name }}</h5>
+                        <p class="text-muted">{{ testimonial.role }}</p>
+                        <p class="testimonial-text">{{ testimonial.text }}</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+  </section>
+  
+  <!-- Statistics Section -->
+  <section class="stats-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 stat-item" *ngFor="let stat of stats">
+                {{ stat.value }} <small>{{ stat.label }}</small>
+            </div>
+        </div>
+    </div>
+  </section>
+  

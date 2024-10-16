@@ -65,20 +65,22 @@ export class AccountService {
     
 
     refreshToken() {
-        const token = localStorage.getItem('refreshToken'); // Get the token from local storage
+        const token = this.getCookie('refreshToken'); // Create a helper to get cookie
         return this.http.post<any>(`${baseUrl}/refresh-token`, { token }, { withCredentials: true })
             .pipe(map((account) => {
                 this.accountSubject.next(account);
                 this.startRefreshTokenTimer();
-                
-                // Update the local storage with the new refresh token
-                if (account.refreshToken) {
-                    localStorage.setItem('refreshToken', account.refreshToken);
-                }
-                
                 return account;
             }));
     }
+    
+    private getCookie(name: string): string | null {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+    
     register(account: Account) {
         return this.http.post(`${baseUrl}/register`, account);
     }

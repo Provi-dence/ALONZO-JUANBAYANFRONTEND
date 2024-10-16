@@ -25,7 +25,10 @@ import { AdminModule } from './admin/admin.module';
 import { CreateCampaignComponent } from './create campaign';
 import { RouterModule } from '@angular/router';
 import { CreateEventComponent } from './events/create-event.component'; // Import your component
+import { CampaignDetailsComponent } from './campaign/campaign-details.component';
 
+import { BenefeciariesComponent } from './home/benefeciaries/benefeciaries.component';
+import { DashboardSwitchComponent } from './dashboard-switch/dashboard-switch.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -45,7 +48,14 @@ import { CreateEventComponent } from './events/create-event.component'; // Impor
         TeamMemberComponent,
         CampaignComponent, 
         CreateCampaignComponent,
-        CreateEventComponent
+        CreateEventComponent,
+        CampaignDetailsComponent,
+
+        //home dashboard
+        BenefeciariesComponent,
+
+        // Dashboard role switcher
+        DashboardSwitchComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

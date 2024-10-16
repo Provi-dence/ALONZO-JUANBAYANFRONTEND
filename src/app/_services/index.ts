@@ -3,3 +3,4 @@ export * from './alert.service';
 export * from './campaign.service';
 export * from './payment.service';
 export * from './reward.service';
+export * from './donation.service';

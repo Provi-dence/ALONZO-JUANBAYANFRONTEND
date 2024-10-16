@@ -1,5 +1,5 @@
-import "./chunk-ZIOPFT3C.js";
-import "./chunk-WVHHQ2AY.js";
+import "./chunk-WB2QOI75.js";
+import "./chunk-ORBBIRM4.js";
 import {
   LIFECYCLE_DID_ENTER,
   LIFECYCLE_DID_LEAVE,
@@ -13,13 +13,13 @@ import {
   getPlatforms,
   isPlatform,
   printIonWarning
-} from "./chunk-2J7VHZNX.js";
+} from "./chunk-GYSLJJOE.js";
 import {
   iosTransitionAnimation
-} from "./chunk-2QWRM6MR.js";
+} from "./chunk-F6KN5O25.js";
 import {
   mdTransitionAnimation
-} from "./chunk-7LKW4V7L.js";
+} from "./chunk-GG42R2KL.js";
 import {
   __awaiter,
   __decorate,
@@ -35,7 +35,7 @@ import {
   initialize,
   isPlatform as isPlatform2,
   printIonWarning as printIonWarning2
-} from "./chunk-NR554Z3W.js";
+} from "./chunk-A4NYE3KH.js";
 import {
   MaxValidator,
   MinValidator,
@@ -3998,10 +3998,10 @@ var openURL2 = function(r, t, n, e) {
   });
 };
 
-// node_modules/@ionic/core/dist/esm-es5/hardware-back-button-8e2c1354.js
+// node_modules/@ionic/core/dist/esm-es5/hardware-back-button-06ef3c3e.js
 var MENU_BACK_BUTTON_PRIORITY2 = 99;
 
-// node_modules/@ionic/core/dist/esm-es5/index-97b0ab3f.js
+// node_modules/@ionic/core/dist/esm-es5/index-fe1782b1.js
 var baseAnimation2 = function(n) {
   return createAnimation2().duration(n ? 400 : 300);
 };
@@ -4360,7 +4360,7 @@ var createMenuController2 = function() {
 };
 var menuController2 = createMenuController2();
 
-// node_modules/@ionic/core/dist/esm-es5/overlays-2ea57630.js
+// node_modules/@ionic/core/dist/esm-es5/overlays-9c75ec54.js
 var createController2 = function(e) {
   return { create: function(n) {
     return createOverlay2(e, n);
@@ -4471,7 +4471,7 @@ function applyPolyfills() {
   return Promise.all(promises);
 }
 
-// node_modules/@ionic/core/dist/esm-es5/app-globals-b9f6e516.js
+// node_modules/@ionic/core/dist/esm-es5/app-globals-5dbb61a5.js
 var globalScripts = initialize;
 
 // node_modules/@ionic/core/dist/esm-es5/loader.js
@@ -5126,7 +5126,9 @@ var IonApp = class IonApp2 {
     changeDetection: 0
   });
 };
-IonApp = __decorate([ProxyCmp2({})], IonApp);
+IonApp = __decorate([ProxyCmp2({
+  methods: ["setFocus"]
+})], IonApp);
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IonApp, [{
     type: Component,
@@ -11138,12 +11140,12 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 
-@ionic/core/dist/esm-es5/hardware-back-button-8e2c1354.js:
+@ionic/core/dist/esm-es5/hardware-back-button-06ef3c3e.js:
   (*!
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 
-@ionic/core/dist/esm-es5/index-97b0ab3f.js:
+@ionic/core/dist/esm-es5/index-fe1782b1.js:
   (*!
    * (C) Ionic http://ionicframework.com - MIT License
    *)
@@ -11153,7 +11155,7 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 
-@ionic/core/dist/esm-es5/overlays-2ea57630.js:
+@ionic/core/dist/esm-es5/overlays-9c75ec54.js:
   (*!
    * (C) Ionic http://ionicframework.com - MIT License
    *)
@@ -11163,7 +11165,7 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 
-@ionic/core/dist/esm-es5/app-globals-b9f6e516.js:
+@ionic/core/dist/esm-es5/app-globals-5dbb61a5.js:
   (*!
    * (C) Ionic http://ionicframework.com - MIT License
    *)
